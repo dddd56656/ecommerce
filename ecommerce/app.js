@@ -17,7 +17,12 @@ const app = express()
 
 require("./models/connect")
 
-app.use(cors())
+app.use(
+  cors({
+    origin: "http://localhost:5173", // 前端域名和端口
+    credentials: true,               // 允许 cookie
+  })
+);
 app.use(morgan("dev"))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))

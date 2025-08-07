@@ -5,7 +5,7 @@ const { host, port, user, pass, dbname } = config.get("db_config")
 console.log(host, port, user, pass, dbname)
 mongoose
   .connect(
-    `mongodb://${user}:${pass}@${host}:${port}/${dbname}?authSource=admin`,
+    `mongodb://${user}:${pass}@${host}:${port}/ecommerce?authSource=admin`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

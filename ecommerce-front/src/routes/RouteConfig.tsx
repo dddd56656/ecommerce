@@ -10,6 +10,16 @@ import NotFoundPage from '@/pages/NotFoundPage';
 import ProtectedRoute from '@/pages/ProtectedRoute';
 import MainLayout from '@/layouts/MainLayout';
 
+// 商品相关业务页面
+import ProductListPage from '@/pages/product/ProductListPage';
+import ProductDetailPage from '@/pages/product/ProductDetailPage';
+import ProductCreatePage from '@/pages/product/ProductCreatePage';
+import ProductEditPage from '@/pages/product/ProductEditPage';
+import ProductSearchPage from '@/pages/product/ProductSearchPage';
+import ProductCategoryPage from '@/pages/product/ProductCategoryPage';
+import ProductFilterPage from '@/pages/product/ProductFilterPage';
+import ProductRelatedPage from '@/pages/product/ProductRelatedPage';
+
 export default function RouteConfig() {
   return (
     <React.Suspense fallback={<div>Loading...</div>}>
@@ -18,7 +28,7 @@ export default function RouteConfig() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
 
-        {/* 受保护区域 + 布局 */}
+        {/* 受保护区域 + 主布局 */}
         <Route
           path="/"
           element={
@@ -27,11 +37,27 @@ export default function RouteConfig() {
             </ProtectedRoute>
           }
         >
-          {/* 根路径重定向到 dashboard（已登录时）；
-             未登录时会被 ProtectedRoute 重定向到 /login */}
+          {/* 主页重定向 */}
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="profile" element={<ProfilePage />} />
+
+          {/* 商品业务页 */}
+          <Route path="products" element={<ProductListPage />} />
+          <Route path="products/search" element={<ProductSearchPage />} />
+          <Route path="products/filter" element={<ProductFilterPage />} />
+          <Route path="products/categories" element={<ProductCategoryPage />} />
+          {/* 详情和相关商品 */}
+          <Route path="product/:id" element={<ProductDetailPage />} />
+          <Route path="product/:id/related" element={<ProductRelatedPage />} />
+
+          {/* 商品新增/编辑页，实际可做权限拦截 */}
+          <Route path="products/create" element={
+              <ProductCreatePage />
+          } />
+          <Route path="product/:id/edit" element={
+              <ProductEditPage />
+          } />
         </Route>
 
         {/* 404 */}
